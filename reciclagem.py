@@ -33,6 +33,20 @@ def jogo():
     latinhaAltura = 30 
     latinhaVelocidade = 5
 
+    garrafaPosicaoX = random.randrange(0, largura - 60)
+    garrafaPosicaoY = -60
+    garrafaLargura = 30
+    garrafaAltura = 60
+    garrafaVelocidade = 6
+
+    pneuPosicaoX = random.randrange(0, largura - 60)
+    pneuPosicaoY = -50
+    pneuLargura = 30 
+    pneuAltura = 50
+    pneuVelocidade = 7
+    
+    lixoReciclado = 0
+
     while True:
         for evento in pygame.event.get():
             if evento.type == pygame.QUIT:
@@ -57,16 +71,40 @@ def jogo():
     
         display.blit(lixeira, (lixeira_posicaoX, lixeira_posicaoY))
         display.blit(latinha, (latinhaPosicaoX, latinhaPosicaoY))
-        
+        display.blit(garrafa, (garrafaPosicaoX, garrafaPosicaoY))
+        display.blit(pneu, (pneuPosicaoX, pneuPosicaoY))
+
         latinhaPosicaoY = latinhaPosicaoY + latinhaVelocidade
+        garrafaPosicaoY = garrafaPosicaoY + garrafaVelocidade
+        pneuPosicaoY = pneuPosicaoY + pneuVelocidade
+
         if latinhaPosicaoY > altura:
             latinhaPosicaoY = -30
             latinhaPosicaoX = random.randrange(0, largura - 30)
+        
+        if garrafaPosicaoY > altura:
+            garrafaPosicaoY = -30
+            garrafaPosicaoX = random.randrange(0, largura - 30)
+
+        if pneuPosicaoY > altura:
+            pneuPosicaoY = -30
+            pneuPosicaoX = random.randrange(0, largura - 30)        
+
         
         if lixeira_posicaoY < latinhaPosicaoY + latinhaAltura:
             if lixeira_posicaoX < latinhaPosicaoX and lixeira_posicaoX + lixeira_largura > latinhaPosicaoX or latinhaPosicaoX + latinhaLargura > lixeira_posicaoX and latinhaPosicaoX + latinhaLargura < lixeira_posicaoX + lixeira_largura:
                 latinhaPosicaoY = -30
                 latinhaPosicaoX = random.randrange(0, largura - 50)
+        
+        if lixeira_posicaoY < garrafaPosicaoY + garrafaAltura:
+            if lixeira_posicaoX < garrafaPosicaoX and lixeira_posicaoX + lixeira_largura > garrafaPosicaoX or garrafaPosicaoX + garrafaLargura > lixeira_posicaoX and garrafaPosicaoX + garrafaLargura < lixeira_posicaoX + lixeira_largura:
+                garrafaPosicaoY = -30
+                garrafaPosicaoX = random.randrange(0, largura - 50)  
+
+        if lixeira_posicaoY < pneuPosicaoY + pneuAltura:
+            if lixeira_posicaoX < pneuPosicaoX and lixeira_posicaoX + lixeira_largura > pneuPosicaoX or pneuPosicaoX + pneuLargura > lixeira_posicaoX and pneuPosicaoX + pneuLargura < lixeira_posicaoX + lixeira_largura:
+                pneuPosicaoY = -30
+                pneuPosicaoX = random.randrange(0, largura - 50)                            
 
         pygame.display.update()
         fps.tick(60)
