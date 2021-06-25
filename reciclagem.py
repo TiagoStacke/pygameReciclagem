@@ -2,6 +2,13 @@ import pygame
 import random
 import time
 
+print('')
+Jogador = input('Digite seu nome: ')
+Email = input('Digite seu email: ')
+arquivo = open("historico", "a")
+arquivo.write(f"Jogador: {Jogador} | Email: {Email}")
+arquivo.close
+
 largura = 640
 altura = 480
 
