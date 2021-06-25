@@ -19,6 +19,27 @@ pneu = pygame.image.load("imagens/pneu.png")
 preto = (0, 0, 0)
 branco = (255, 255, 255)
 
+def text_objects(texto, fonte):
+    textSurface = fonte.render(texto, True, preto)
+    return textSurface, textSurface.get_rect()
+
+def message_display(text):
+    fonte = pygame.font.Font("freesansbold.ttf", 25)
+    TextSurf, TextRect = text_objects(text, fonte)
+    TextRect.center = ((largura/2), (altura/2))
+    display.blit(TextSurf, TextRect)
+    pygame.display.update()
+    time.sleep(3)
+    jogo()
+
+def morte(lixoReciclado):
+    message_display("Você coletou " + str(lixoReciclado) + " lixos para a reciclagem")
+
+def escrevendoPlacar(lixoReciclado):
+    font = pygame.font.SysFont(None, 30)
+    texto = font.render("Lixos reciclados: " + str(lixoReciclado), True, preto)
+    display.blit(texto, (200, 10))
+
 def jogo():
     pygame.init()
 
@@ -90,21 +111,22 @@ def jogo():
             pneuPosicaoY = -30
             pneuPosicaoX = random.randrange(0, largura - 30)        
 
-        
+        escrevendoPlacar(lixoReciclado)
+
         if lixeira_posicaoY < latinhaPosicaoY + latinhaAltura:
             if lixeira_posicaoX < latinhaPosicaoX and lixeira_posicaoX + lixeira_largura > latinhaPosicaoX or latinhaPosicaoX + latinhaLargura > lixeira_posicaoX and latinhaPosicaoX + latinhaLargura < lixeira_posicaoX + lixeira_largura:
                 latinhaPosicaoY = -30
                 latinhaPosicaoX = random.randrange(0, largura - 50)
-        
+                lixoReciclado = lixoReciclado + 1
         if lixeira_posicaoY < garrafaPosicaoY + garrafaAltura:
             if lixeira_posicaoX < garrafaPosicaoX and lixeira_posicaoX + lixeira_largura > garrafaPosicaoX or garrafaPosicaoX + garrafaLargura > lixeira_posicaoX and garrafaPosicaoX + garrafaLargura < lixeira_posicaoX + lixeira_largura:
                 garrafaPosicaoY = -30
                 garrafaPosicaoX = random.randrange(0, largura - 50)  
-
+                lixoReciclado = lixoReciclado + 1
         if lixeira_posicaoY < pneuPosicaoY + pneuAltura:
             if lixeira_posicaoX < pneuPosicaoX and lixeira_posicaoX + lixeira_largura > pneuPosicaoX or pneuPosicaoX + pneuLargura > lixeira_posicaoX and pneuPosicaoX + pneuLargura < lixeira_posicaoX + lixeira_largura:
-                pneuPosicaoY = -30
-                pneuPosicaoX = random.randrange(0, largura - 50)                            
+                morte(lixoReciclado)
+          
 
         pygame.display.update()
         fps.tick(60)
