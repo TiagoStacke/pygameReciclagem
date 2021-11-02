@@ -1,4 +1,4 @@
-Neste jogo tento apresentar de forma sútil a ideia de reciclagem para crianças que estão passando pelo período de alfabetização.
+Neste jogo tento apresentar de forma sutil a ideia de reciclagem para crianças que estão passando pelo período de alfabetização.
 
 
 
